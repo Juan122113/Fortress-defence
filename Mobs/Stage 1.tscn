@@ -1,0 +1,171 @@
+[gd_scene load_steps=14 format=3 uid="uid://dmlfhrb8yagpd"]
+
+[ext_resource type="Script" path="res://Mobs/mob.gd" id="1_mr74c"]
+[ext_resource type="Texture2D" uid="uid://bfn45gtuavcif" path="res://Assets/Zombie.png" id="2_s473u"]
+[ext_resource type="Texture2D" uid="uid://ccw2vgi3d830i" path="res://Assets/explosion.png" id="4_ru4of"]
+
+[sub_resource type="Curve2D" id="Curve2D_3sejq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 1984, 0, 0, 0, 0, 128, 1984, 0, 0, 0, 0, 376, 1984, 0, 0, 0, 0, 648, 1984, 0, 0, 0, 0, 1080, 1984, 0, 0, 0, 0, 1216, 1984, 0, 0, 0, 0, 1528, 1984, 0, 0, 0, 0, 2096, 1984, 0, 0, 0, 0, 2408, 1984, 0, 0, 0, 0, 2963, 1981)
+}
+point_count = 10
+
+[sub_resource type="Animation" id="Animation_25gau"]
+resource_name = "death"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [65, 66, 67, 68, 69, 70, 71, 72]
+}
+
+[sub_resource type="Animation" id="Animation_x60kk"]
+resource_name = "misil"
+length = 0.9
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [52, 53, 54, 55, 56, 57, 58, 59, 60]
+}
+
+[sub_resource type="Animation" id="Animation_m8wue"]
+resource_name = "walk"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [26, 27, 28, 29, 30, 31, 32, 33]
+}
+
+[sub_resource type="Animation" id="Animation_umb7q"]
+resource_name = "walk_misil"
+length = 1.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51]
+}
+
+[sub_resource type="Animation" id="Animation_dt2nl"]
+resource_name = "walk_slow"
+length = 1.1
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.9, 1.05),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [26, 27, 28, 29, 30, 31, 32, 33]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7ygt8"]
+_data = {
+"death": SubResource("Animation_25gau"),
+"misil": SubResource("Animation_x60kk"),
+"walk": SubResource("Animation_m8wue"),
+"walk_misil": SubResource("Animation_umb7q"),
+"walk_slow": SubResource("Animation_dt2nl")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wgtgs"]
+size = Vector2(119, 140)
+
+[sub_resource type="Animation" id="Animation_7ct7a"]
+resource_name = "explosion"
+length = 0.85
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c1pu7"]
+_data = {
+"explosion": SubResource("Animation_7ct7a")
+}
+
+[node name="Path2D" type="Path2D"]
+position = Vector2(8, -112)
+curve = SubResource("Curve2D_3sejq")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2(0, 1984)
+loop = false
+
+[node name="ZombieExplosion" type="CharacterBody2D" parent="PathFollow2D"]
+script = ExtResource("1_mr74c")
+
+[node name="Zombie" type="Sprite2D" parent="PathFollow2D/ZombieExplosion"]
+texture_filter = 1
+position = Vector2(3.5, -12.0001)
+scale = Vector2(5, 5)
+texture = ExtResource("2_s473u")
+hframes = 13
+vframes = 6
+frame = 41
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PathFollow2D/ZombieExplosion/Zombie"]
+libraries = {
+"": SubResource("AnimationLibrary_7ygt8")
+}
+
+[node name="CollisionShape2DZombie" type="CollisionShape2D" parent="PathFollow2D/ZombieExplosion"]
+position = Vector2(3.5, -2)
+shape = SubResource("RectangleShape2D_wgtgs")
+
+[node name="Explosion" type="Sprite2D" parent="PathFollow2D/ZombieExplosion"]
+visible = false
+position = Vector2(3.8147e-06, 0.00012207)
+scale = Vector2(5, 5)
+texture = ExtResource("4_ru4of")
+hframes = 9
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PathFollow2D/ZombieExplosion/Explosion"]
+libraries = {
+"": SubResource("AnimationLibrary_c1pu7")
+}
+
+[connection signal="animation_finished" from="PathFollow2D/ZombieExplosion/Explosion/AnimationPlayer" to="PathFollow2D/ZombieExplosion" method="_on_animation_player_animation_finished"]
