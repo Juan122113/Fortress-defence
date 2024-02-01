@@ -1,26 +1,30 @@
 extends StaticBody2D
 
-#var Bullet = load("res://Towers/RedBullet.tscn")
+var Bullet = load("res://Towers/RedBullet.tscn")
 var bulletDamage = 5
 var pathName
 var currTargets = []
 var curr
-@export var Bullet : PackedScene
+var reload = 0
+var range = 400
 
 func _process(delta):
 	if is_instance_valid(curr):
 		self.look_at(curr.global_position)
-	#else:
-		#for i in get_node("BulletContainer").get_child_count():
-			#get_node("BulletContainer").get_child(i).queue_free()
+	else:
+		for i in get_node("BulletContainer").\
+		get_child_count():
+			get_node("BulletContainer").\
+			get_child(i).queue_free()
 	
-	if Input.is_action_just_pressed("shoot"):
-		shoot()
+	#if Input.is_action_just_pressed("shoot"):
+		#shoot()
 
 func _on_tower_body_entered(body):
 	if "ZombieExplosion" in body.name:
 		var tempArray = []
-		currTargets = get_node("Tower").get_overlapping_bodies()
+		currTargets = get_node("Tower").\
+		get_overlapping_bodies()
 		for i in currTargets:
 			if "ZombieExplosion" in i.name:
 				tempArray.append(i)
@@ -35,21 +39,21 @@ func _on_tower_body_entered(body):
 					currTarget = i.get_node("../")
 					
 			
-			shoot()
+			#shoot()
 					
 		curr = currTarget
 		pathName = currTarget.get_parent().name
 
-		#var tempBullet = Bullet.instantiate()
-		#tempBullet.pathName = pathName
-		#tempBullet.bulletDamage = bulletDamage
-		#get_node("BulletContainer").add_child(tempBullet)
-		#tempBullet.global_position = $Aim.global_position
+		var tempBullet = Bullet.instantiate()
+		tempBullet.pathName = pathName
+		tempBullet.bulletDamage = bulletDamage
+		get_node("BulletContainer").add_child(tempBullet)
+		tempBullet.global_position = $Aim.global_position
 
 func _on_tower_body_exited(body):
 	currTargets = get_node("Tower").get_overlapping_bodies()
 	
-func shoot():
-	var b = Bullet.instantiate()
-	add_child(b)
-	b.transform = $Aim.transform
+#func shoot():
+	#var b = Bullet.instantiate()
+	#add_child(b)
+	#b.transform = $Aim.transform
