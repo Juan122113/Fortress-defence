@@ -10,6 +10,7 @@ size = Vector2(56, 43)
 radius = 1486.13
 
 [node name="RedBulletTower" type="StaticBody2D"]
+rotation = -3.14159
 script = ExtResource("1_l7h5s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
